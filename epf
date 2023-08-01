@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Version: 1.0"
+echo "Creator: Nex389"
+echo
+echo "EPF, The friendly package manager frontend!"
+echo
+echo "Commands: einstall, eremove, eupdate"

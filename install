@@ -1,0 +1,60 @@
+#!/usr/bin/bash
+
+# Function to show usage
+show_usage() {
+  echo "Usage: $0 [--remove]"
+  echo "  --remove   Remove EPF from the system."
+}
+
+# Function to install EPF
+install_epf() {
+  echo "Installing EPF! You may be asked for your password."
+  sudo chmod +x epf
+  sudo chmod +x einstall
+  sudo chmod +x eremove
+  sudo chmod +x eupdate
+  sudo cp epf /usr/bin/
+  sudo cp einstall /usr/bin/
+  sudo cp eremove /usr/bin/
+  sudo cp eupdate /usr/bin/
+  echo "EPF is installed!"
+}
+
+# Function to remove EPF
+remove_epf() {
+  echo "Removing EPF from the system."
+  sudo rm /usr/bin/epf
+  sudo rm /usr/bin/einstall
+  sudo rm /usr/bin/eremove
+  sudo rm /usr/bin/eupdate
+  echo "EPF is removed!"
+}
+
+# Check for command-line arguments
+while getopts ":h-:" opt; do
+  case "${opt}" in
+    -)
+      case "${OPTARG}" in
+        remove)
+          remove_epf
+          exit 0
+          ;;
+        *)
+          show_usage
+          exit 1
+          ;;
+      esac
+      ;;
+    h)
+      show_usage
+      exit 0
+      ;;
+    \?)
+      show_usage
+      exit 1
+      ;;
+  esac
+done
+
+# If no arguments provided, install EPF by default
+install_epf

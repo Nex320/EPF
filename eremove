@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Function to display version and creator information
+show_info() {
+    echo "Version: 1.0"
+    echo "Creator: Nex389"
+    echo "A part of the EPF Family!"
+}
+
+# Supported package managers and their corresponding package removal commands
+declare -A PACKAGE_MANAGERS=(
+    ["nala"]="sudo nala remove"
+    ["dnf"]="sudo dnf remove"
+    ["apt"]="sudo apt-get remove"
+    ["zypper"]="sudo zypper remove"
+    ["pacman"]="sudo pacman -Rs"
+    ["emerge"]="sudo emerge -C"
+    ["xbps-install"]="sudo xbps-remove"
+    ["apk"]="sudo apk del"
+)
+
+# Check if the --info argument is provided
+if [ "$1" == "--info" ]; then
+    show_info
+    exit 0
+fi
+
+# Detect package manager
+PM=""
+for pkg_manager in "${!PACKAGE_MANAGERS[@]}"; do
+    if command -v "$pkg_manager" >/dev/null 2>&1; then
+        PM="$pkg_manager"
+        break
+    fi
+done
+
+# Check if a supported package manager is found
+if [ -z "$PM" ]; then
+    echo "No supported package manager found (nala, dnf, apt, zypper, pacman, emerge, xbps-install, or apk)."
+    exit 1
+fi
+
+# Check if both nala and apt are installed, use nala instead of apt
+if [[ "$PM" == "apt" && -n $(command -v nala) ]]; then
+    PM="nala"
+    echo "Nala detected, using nala as the package manager."
+fi
+
+# Check if any arguments are provided
+if [ $# -eq 0 ]; then
+    echo "Usage: eremove packagename"
+    exit 1
+fi
+
+# Remove the package using the detected package manager
+REMOVE_COMMAND="${PACKAGE_MANAGERS[$PM]}"
+$REMOVE_COMMAND "$1"
+
+exit 0

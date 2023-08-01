@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Function to display version and creator information
+show_info() {
+    echo "Version: 1.0"
+    echo "Creator: Nex389"
+    echo "A part of the EPF Family!"
+}
+
+# Supported package managers and their corresponding package installation commands
+declare -A PACKAGE_MANAGERS=(
+    ["nala"]="sudo nala install"
+    ["dnf"]="sudo dnf install"
+    ["apt"]="sudo apt-get install"
+    ["zypper"]="sudo zypper install"
+    ["pacman"]="sudo pacman -S"
+    ["emerge"]="sudo emerge"
+    ["xbps-install"]="sudo xbps-install -S"
+    ["apk"]="sudo apk add"
+)
+
+# Check if the --info argument is provided
+if [ "$1" == "--info" ]; then
+    show_info
+    exit 0
+fi
+
+# Detect package manager
+PM=""
+for pkg_manager in "${!PACKAGE_MANAGERS[@]}"; do
+    if command -v "$pkg_manager" >/dev/null 2>&1; then
+        PM="$pkg_manager"
+        break
+    fi
+done
+
+# Check if a supported package manager is found
+if [ -z "$PM" ]; then
+    echo "No supported package manager found (nala, dnf, apt, zypper, pacman, emerge, xbps-install, or apk)."
+    exit 1
+fi
+
+# Check if both nala and apt are installed, use nala instead of apt
+if [[ "$PM" == "apt" && -n $(command -v nala) ]]; then
+    PM="nala"
+    echo "Nala detected, using nala as the package manager."
+fi
+
+# Check if any arguments are provided
+if [ $# -eq 0 ]; then
+    echo "Usage: einstall packagename"
+    exit 1
+fi
+
+# Install the package using the detected package manager
+INSTALL_COMMAND="${PACKAGE_MANAGERS[$PM]}"
+$INSTALL_COMMAND "$1"
+
+exit 0
