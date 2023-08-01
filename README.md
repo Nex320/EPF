@@ -1,6 +1,17 @@
 # EPF
 A friendly package manager command frontend for all distros!
 
+# How to install?
+Just run the following commands!
+
+- git clone https://github.com/Nex320/EPF
+- cd EPF
+- chmod +x install
+- ./install
+
+And if you want to remove it? After running the "cd EPF" command just run the following command.
+- ./install --remove
+
 # EPF Supports...
 Debian-based distributions:
 - Debian
@@ -35,13 +46,4 @@ Other distributions:
 - Void Linux
 - Apline Linux
         
-# How to install?
-Just run the following commands!
 
-- git clone https://github.com/Nex320/EPF
-- cd EPF
-- chmod +x install
-- ./install
-
-And if you want to remove it? After running the "cd EPF" command just run the following command.
-- ./install --remove
