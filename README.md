@@ -35,3 +35,13 @@ A friendly package manager command frontend for all distros!
         Void Linux,
         Apline Linux
         
+# How to install?
+Just run the following commands!
+
+- git clone https://github.com/Nex320/EPF
+- cd EPF
+- chmod +x install
+- ./install
+
+And if you want to remove it?
+- ./install --remove
