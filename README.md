@@ -43,5 +43,5 @@ Just run the following commands!
 - chmod +x install
 - ./install
 
-And if you want to remove it?
+And if you want to remove it? After running the "cd EPF" command just run the following command.
 - ./install --remove
