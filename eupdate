@@ -15,7 +15,7 @@ declare -A PACKAGE_MANAGERS=(
     ["zypper"]="sudo zypper refresh && sudo zypper update"
     ["pacman"]="sudo pacman -Syu"
     ["emerge"]="sudo emerge --sync && sudo emerge -uND @world"
-    ["xbps-install"]="sudo xbps-install -S"
+    ["xbps-install"]="sudo xbps-install -Su"
     ["apk"]="sudo apk update && sudo apk upgrade"
 )
 
