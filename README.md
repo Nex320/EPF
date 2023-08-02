@@ -39,11 +39,11 @@ Arch Linux-based distributions:
 - EndeavourOS
         
 Gentoo-based distributions:
-- Gentoo Linux,
+- Gentoo Linux
 - Funtoo Linux
 
 Other distributions:
 - Void Linux
-- Apline Linux
+- Alpine Linux
         
 
